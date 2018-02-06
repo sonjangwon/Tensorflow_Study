@@ -1,0 +1,2 @@
+model_checkpoint_path: "C:/Users/Jangwon/Documents/Tensorflow/modeltest.ckpt"
+all_model_checkpoint_paths: "C:/Users/Jangwon/Documents/Tensorflow/modeltest.ckpt"
