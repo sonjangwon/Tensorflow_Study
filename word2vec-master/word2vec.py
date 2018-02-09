@@ -16,7 +16,7 @@ import tensorflow as tf
 
 # Step 1: Download the data.
 url = 'http://mattmahoney.net/dc/'
-filename = 'bomb.txt'
+filename = 'test.txt'
 
 def maybe_download(filename, expected_bytes):
   """Download a file if not present, and make sure it's the right size."""
@@ -32,7 +32,7 @@ def maybe_download(filename, expected_bytes):
         'Failed to verify ' + filename + '. Can you get to it with a browser?')
   return filename
 
-filename = maybe_download('text8.zip', 31344016)
+filename = maybe_download('test.zip', 1000)
 
 
 # Read the data into a list of strings.
@@ -216,8 +216,8 @@ with graph.as_default():
 
 # Step 5: Begin training.
 #num_steps = 200000
-num_steps = 100001
-#num_steps = 1000
+#num_steps = 100001
+num_steps = 1000
     
 with tf.Session(graph=graph) as session:
   # We must initialize all variables before we use them.
