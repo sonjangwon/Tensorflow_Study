@@ -1,2 +1,2 @@
-model_checkpoint_path: "test.txt"
-all_model_checkpoint_paths: "test.txt"
+model_checkpoint_path: "my_test_model"
+all_model_checkpoint_paths: "my_test_model"

@@ -6,7 +6,8 @@ import numpy as np
 import gensim 
 from gensim.models import KeyedVectors
 from gensim.models import Word2Vec
-
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # 단어 벡터를 분석해볼 임의의 문장들
 with open('doc.txt', 'r') as infile:
     sentences = np.array(infile.readlines())
@@ -104,28 +105,39 @@ train_op = tf.train.AdamOptimizer(learning_rate).minimize(loss)
 #########
 # 신경망 모델 학습
 ######
+saver = tf.train.Saver()
+#vocabulary_size = 50000
+#embedding_size = 128
+#embeddings = tf.Variable(tf.random_uniform([vocabulary_size, embedding_size],0,1))
 
- 
 with tf.Session() as sess:
     init = tf.global_variables_initializer()
-    sess.run(init)
+    embeddings_val = sess.run(init)
+    with open('embeddings.txt', 'w') as file_:
+      for i in range(voc_size):
+        embed = "b"
+        word = "a"
+        file_.write('%s %s\n' % (word, ' '.join(map(str, embed))))
+    #init = tf.global_variables_initializer()
+    #sess.run(init)
 
-    for step in range(1, training_epoch + 1):
-        batch_inputs, batch_labels = random_batch(skip_grams, batch_size)
+    #for step in range(1, training_epoch + 1):
+     #   batch_inputs, batch_labels = random_batch(skip_grams, batch_size)
 
-        _, loss_val = sess.run([train_op, loss],
-                               feed_dict={inputs: batch_inputs,
-                                          labels: batch_labels})
+     #   _, loss_val = sess.run([train_op, loss],
+     #                          feed_dict={inputs: batch_inputs,
+     #                                     labels: batch_labels})
 
-        if step % 10 == 0:
-            print("loss at step ", step, ": ", loss_val)
+     #   if step % 10 == 0:
+     #       print("loss at step ", step, ": ", loss_val)
 	
 	# matplot 으로 출력하여 시각적으로 확인해보기 위해
     # 임베딩 벡터의 결과 값을 계산하여 저장합니다.
     # with 구문 안에서는 sess.run 대신 간단히 eval() 함수를 사용할 수 있습니다. 
-    trained_embeddings = embeddings.eval() 
-    
-
+    #trained_embeddings = embeddings.eval() 
+    #model.save_word2vec_format('model.bin', binary=True)
+    #saver.save(sess, 'test/my_test_model')
+ 
 print(word_list)
 model2 = Word2Vec(word_list, hs=1, size=300, min_count=1,iter=10)
 print(model2.doesnt_match(word_list))
@@ -136,9 +148,9 @@ print(model2.doesnt_match(word_list))
 # 결과는 해당 단어들이 얼마나 다른 단어와 인접해 있는지를 보여줍니다.
 ######
 
-for i, label in enumerate(word_list):
-    x, y = trained_embeddings[i] 
-    plt.scatter(x, y)
-    plt.annotate(label, xy=(x, y), xytext=(5, 2),
-                textcoords='offset points', ha='right', va='bottom')
-plt.show()
+#for i, label in enumerate(word_list):
+#    x, y = trained_embeddings[i] 
+#    plt.scatter(x, y)
+#    plt.annotate(label, xy=(x, y), xytext=(5, 2),
+#                textcoords='offset points', ha='right', va='bottom')
+#plt.show()
